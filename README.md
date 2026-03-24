@@ -23,7 +23,7 @@ sudo apt-get install repo git-core gnupg flex bison gperf build-essential \
   libgl1-mesa-dev libxml2-utils xsltproc unzip liblz4-tool libssl-dev \
   libc++-dev libc++abi-dev libevent-dev \
   flatbuffers-compiler libflatbuffers-dev libtinyxml2-dev \
-  ninja-build python3 pkg-config \
+  ninja-build python3 pkg-config debmake \
   libglib2.0-dev libnss3-dev libdbus-1-dev \
   libprotobuf-dev protobuf-compiler \
   libre2-dev libdouble-conversion-dev libabsl-dev
