@@ -251,7 +251,7 @@ class SecurityManagerImpl : public channel::ISecurityManagerChannelListener, pub
   channel::SecurityManagerChannel* security_manager_channel_;
   hci::AclManager* acl_manager_;
   hci::Controller* controller_;
-  storage::StorageModule* storage_module_ __attribute__((unused));
+  storage::StorageModule* storage_module_;
   record::SecurityRecordStorage security_record_storage_;
   record::SecurityRecordDatabase security_database_;
   neighbor::NameDbModule* name_db_module_;

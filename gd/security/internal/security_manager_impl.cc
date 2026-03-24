@@ -51,6 +51,8 @@ void SecurityManagerImpl::DispatchPairingHandler(
   std::shared_ptr<pairing::PairingHandler> pairing_handler = nullptr;
   switch (record->GetPseudoAddress()->GetAddressType()) {
     case hci::AddressType::PUBLIC_DEVICE_ADDRESS: {
+      auto device = storage_module_->GetDeviceByClassicMacAddress(record->GetPseudoAddress()->GetAddress());
+      std::string device_name = device.GetName().value_or(record->GetPseudoAddress()->ToString());
       pairing_handler = std::make_shared<security::pairing::ClassicPairingHandler>(
           security_manager_channel_,
           record,
@@ -58,7 +60,7 @@ void SecurityManagerImpl::DispatchPairingHandler(
           std::move(callback),
           user_interface_,
           user_interface_handler_,
-          record->GetPseudoAddress()->ToString(),
+          device_name,
           name_db_module_);
       break;
     }
@@ -262,8 +264,6 @@ void SecurityManagerImpl::HandleEvent(T packet) {
                 hci::EventCodeText(event_code).c_str());
       return;
     }
-
-    auto device = storage_module_->GetDeviceByClassicMacAddress(bd_addr);
 
     auto record =
         security_database_.FindOrCreate(hci::AddressWithType{bd_addr, hci::AddressType::PUBLIC_DEVICE_ADDRESS});
@@ -542,7 +542,9 @@ void SecurityManagerImpl::OnSmpCommandLe(hci::AddressWithType device) {
         .remotely_initiated = true,
         .connection_handle = channel->GetLinkOptions()->GetHandle(),
         .remote_connection_address = channel->GetDevice(),
-        .remote_name = "TODO: grab proper device name in sec mgr",
+        .remote_name = storage_module_->GetDeviceByLegacyKey(channel->GetDevice().GetAddress())
+                           .GetName()
+                           .value_or(""),
         /* contains pairing request, if the pairing was remotely initiated */
         .pairing_request = pairing_request,
         .remote_oob_data = remote_oob_data,
@@ -614,7 +616,9 @@ void SecurityManagerImpl::ConnectionIsReadyStartPairing(LeFixedChannelEntry* sto
       .remotely_initiated = false,
       .connection_handle = channel->GetLinkOptions()->GetHandle(),
       .remote_connection_address = channel->GetDevice(),
-      .remote_name = "TODO: grab proper device name in sec mgr",
+      .remote_name = storage_module_->GetDeviceByLegacyKey(channel->GetDevice().GetAddress())
+                         .GetName()
+                         .value_or(""),
       /* contains pairing request, if the pairing was remotely initiated */
       .pairing_request = std::nullopt,  // TODO: handle remotely initiated pairing in SecurityManager properly
       .remote_oob_data = remote_oob_data,
