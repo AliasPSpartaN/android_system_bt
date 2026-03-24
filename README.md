@@ -19,11 +19,14 @@ Otherwise, you can use the following apt-get list:
 ```sh
 sudo apt-get install repo git-core gnupg flex bison gperf build-essential \
   zip curl zlib1g-dev gcc-multilib g++-multilib \
-  x11proto-core-dev libx11-dev lib32z-dev libncurses5 \
+  x11proto-core-dev libx11-dev lib32z-dev \
   libgl1-mesa-dev libxml2-utils xsltproc unzip liblz4-tool libssl-dev \
-  libc++-dev libevent-dev \
-  flatbuffers-compiler libflatbuffers1 \
-  openssl openssl-dev
+  libc++-dev libc++abi-dev libevent-dev \
+  flatbuffers-compiler libflatbuffers-dev libtinyxml2-dev \
+  ninja-build python3 pkg-config \
+  libglib2.0-dev libnss3-dev libdbus-1-dev \
+  libprotobuf-dev protobuf-compiler \
+  libre2-dev libdouble-conversion-dev libabsl-dev
 ```
 
 You will also need a recent-ish version of Rust and Cargo. Please follow the

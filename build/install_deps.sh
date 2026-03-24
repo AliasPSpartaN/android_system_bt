@@ -20,7 +20,7 @@ fi
 
 if [ ! -z "$CLANG_PACKAGE" ]; then
   # Try to find clang from a known list
-  for clang_version in 12.0 11.0
+  for clang_version in 14.0 13.0 12.0 11.0
   do
     clang_path=`which clang-$clang_version`
     if [ -f "$clang_path" ]; then
@@ -46,8 +46,19 @@ if [ ! -z "$CLANG_PACKAGE" ]; then
   fi
 fi
 
-sudo apt-get -y install $CLANG_PACKAGE libevent-dev libc++-dev libc++abi-dev \
-  ninja-build libflatbuffers-dev libtinyxml2-dev
+# Install all required build dependencies
+sudo apt-get -y install $CLANG_PACKAGE \
+  git-core gnupg flex bison gperf build-essential \
+  zip curl zlib1g-dev gcc-multilib g++-multilib \
+  x11proto-core-dev libx11-dev lib32z-dev \
+  libgl1-mesa-dev libxml2-utils xsltproc unzip liblz4-tool \
+  libssl-dev libc++-dev libc++abi-dev libevent-dev \
+  flatbuffers-compiler libflatbuffers-dev libtinyxml2-dev \
+  ninja-build python3 pkg-config debmake \
+  libglib2.0-dev libnss3-dev libdbus-1-dev \
+  libprotobuf-dev protobuf-compiler \
+  libre2-dev libdouble-conversion-dev \
+  libabsl-dev
 
 gn_path=`which gn`
 if [ -z $gn_path ]; then
