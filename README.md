@@ -6,17 +6,17 @@ Just build AOSP - Fluoride is there by default.
 ## Building and running on Linux
 
 Instructions for a Debian based distribution:
-* Debian Bullseye or newer
-* Ubuntu 20.10 or newer
-* Clang-11 or Clang-12
-* Flex 2.6.x
-* Bison 3.x.x (tested with 3.0.x, 3.2.x and 3.7.x)
+pkg install Debian Bullseye or newer
+pkg install Ubuntu 20.10 or newer
+pkg install Clang-11 or Clang-12
+pkg install Flex 2.6.x
+pkg install Bison 3.x.x (tested with 3.0.x, 3.2.x and 3.7.x)
 
 You'll want to download some pre-requisite packages as well. If you're currently
 configured for AOSP development, you should have all required packages.
 Otherwise, you can use the following apt-get list:
 
-```sh
+sh
 sudo apt-get install repo git-core gnupg flex bison gperf build-essential \
   zip curl zlib1g-dev gcc-multilib g++-multilib \
   x11proto-core-dev libx11-dev lib32z-dev \
@@ -34,7 +34,7 @@ instructions on [Rustup](https://rustup.rs/) to install a recent version.
 
 ### Download source
 
-```sh
+sh
 mkdir ~/fluoride
 cd ~/fluoride
 git clone https://android.googlesource.com/platform/system/bt
