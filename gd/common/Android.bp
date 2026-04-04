@@ -31,6 +31,7 @@ filegroup {
         "metric_id_manager_unittest.cc",
         "multi_priority_queue_test.cc",
         "numbers_test.cc",
+        "stop_watch_test.cc",
         "strings_test.cc",
     ],
 }
